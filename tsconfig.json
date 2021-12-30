@@ -1,13 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es2015",
     "module": "commonjs",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "outDir": "./dist",
-    "declaration": true
+    "target": "es2015",
+    "declaration": true,
+    "outDir": "./dist"
   },
-  "files": [
-    "."
+  "include": [
+    "src/**/*"
   ]
 }
