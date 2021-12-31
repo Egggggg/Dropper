@@ -16,7 +16,7 @@ export class Piece {
 }
 
 export class Square {
-  private constructor(meta: Metadata, position: Position);
+	private constructor(position: Position, meta: Metadata);
 }
 
 export interface KickTable {}
