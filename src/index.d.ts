@@ -1,3 +1,6 @@
+type RotationAmount = -1 | 1 | 2;
+type PieceType = "main" | "test";
+
 export class Engine {
 	public activeBoard: number;
 	public boards: Array<Board>;
