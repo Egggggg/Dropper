@@ -94,7 +94,9 @@ export interface Offset {
 	y: number;
 }
 
-export interface PieceData {}
+export interface PieceData {
+	kicks: KickTable;
+}
 
 export interface Metadata {}
 
@@ -102,4 +104,11 @@ export interface KickData {
 	"+": Offset[];
 	"-": Offset[];
 }
+
+export interface Rotation {
+	by: RotationAmount;
+}
+
+export interface Movement {
+	by: Offset;
 }
