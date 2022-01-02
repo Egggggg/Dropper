@@ -2,12 +2,14 @@ type RotationAmount = -1 | 1 | 2;
 type PieceType = "main" | "test";
 
 export class Engine {
+	// fields
 	public activeBoard: number;
 	public boards: Array<Board>;
 	public height: number;
 	public pieces: Array<PieceData>;
 	public width: number;
 
+	// constructor
 	private constructor(
 		width: number,
 		height: number,
@@ -15,34 +17,46 @@ export class Engine {
 		numBoards?: number
 	);
 
+	// private methods
 	private rotatePiece(by: RotationAmount, piece: Piece, type: PieceType): void;
 	private movePiece(by: Offset, piece: Piece, type: PieceType): void;
 
-	public checkClear(board: Board, piece: Piece): Array<Square>;
+	// general utility methods
+	public checkClear(board: Board, piece: Piece): Square[];
 	public choosePiece(board: Board, last: Piece): PieceData;
 
-	public rotate(by: RotationAmount): void;
-	public rotateClockwise(): void;
-	public rotateCounterClockwise(): void;
-	public rotate180(): void;
+	// methods to rotate active piece
+	public rotate(by: RotationAmount): Piece;
+	public rotateClockwise(): Piece;
+	public rotateCounterClockwise(): Piece;
+	public rotate180(): Piece;
 
-	public testRotate(by: RotationAmount): void;
-	public testRotateClockwise(): void;
-	public testRotateCounterClockwise(): void;
-	public testRotate180(): void;
+	// methods to rotate test piece
+	public testRotate(by: RotationAmount): boolean;
+	public testRotateClockwise(): boolean;
+	public testRotateCounterClockwise(): boolean;
+	public testRotate180(): boolean;
 
-	public move(by: Offset): void;
-	public moveLeft(times?: number): void;
-	public moveRight(times?: number): void;
-	public moveUp(times?: number): void;
-	public moveDown(times?: number): void;
+	// methods to move active piece
+	public move(by: Offset): Piece;
+	public moveLeft(times?: number): Piece;
+	public moveRight(times?: number): Piece;
+	public moveUp(times?: number): Piece;
+	public moveDown(times?: number): Piece;
 
-	public testMove(by: Offset): void;
-	public testMoveLeft(times?: number): void;
-	public testMoveRight(times?: number): void;
-	public testMoveUp(times?: number): void;
-	public testMoveDown(times?: number): void;
+	// methods to move test piece
+	public testMove(by: Offset): boolean;
+	public testMoveLeft(times?: number): boolean;
+	public testMoveRight(times?: number): boolean;
+	public testMoveUp(times?: number): boolean;
+	public testMoveDown(times?: number): boolean;
 
+	// move/rotate the test piece, then the active piece if possible
+	public testAndRotate(by: RotationAmount): boolean;
+	public testAndMove(by: Offset): boolean;
+	public multiAction(queue: Action[]): boolean;
+
+	// place active piece
 	public place(): void;
 }
 
