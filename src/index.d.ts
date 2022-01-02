@@ -1,5 +1,6 @@
 type RotationAmount = -1 | 1 | 2;
 type PieceType = "main" | "test";
+type Action = Rotation | Movement;
 
 export class Engine {
 	// fields
