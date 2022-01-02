@@ -4,16 +4,16 @@ type PieceType = "main" | "test";
 export class Engine {
 	// fields
 	public activeBoard: number;
-	public boards: Array<Board>;
+	public boards: Board[];
 	public height: number;
-	public pieces: Array<PieceData>;
+	public pieces: PieceData[];
 	public width: number;
 
 	// constructor
 	private constructor(
 		width: number,
 		height: number,
-		pieces: Array<PieceData>,
+		pieces: PieceData[],
 		numBoards?: number
 	);
 
@@ -61,6 +61,11 @@ export class Engine {
 }
 
 export class Board {
+	public width: number;
+	public height: number;
+	public squares: Square[][];
+	public currentPiece: Piece;
+
 	private constructor(width: number, height: number);
 }
 
@@ -94,6 +99,7 @@ export interface PieceData {}
 export interface Metadata {}
 
 export interface KickData {
-	"+": Array<Offset>;
-	"-": Array<Offset>;
+	"+": Offset[];
+	"-": Offset[];
+}
 }
