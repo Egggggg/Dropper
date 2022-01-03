@@ -1,6 +1,7 @@
 type RotationAmount = -1 | 1 | 2;
 type PieceType = "main" | "test";
 type Action = Rotation | Movement;
+type ClearCheck = (board: Board, piece: Piece) => Square[];
 
 export class Engine {
 	// fields
@@ -19,15 +20,16 @@ export class Engine {
 	);
 
 	// private methods
-	private rotatePiece(by: RotationAmount, piece: Piece, type: PieceType): void;
-	private movePiece(by: Offset, piece: Piece, type: PieceType): void;
+	private _rotate(by: RotationAmount, piece: Piece, type: PieceType): void;
+	private _move(by: Offset, piece: Piece, type: PieceType): void;
 
-	// general utility methods
+	// general utility
 	public checkClear(board: Board, piece: Piece): Square[];
-	public choosePiece(board: Board, last: Piece): PieceData;
+	public choosePiece(board: Board, last: Piece): Piece;
+	public place(): void;
 
 	// methods to rotate active piece
-	public rotate(by: RotationAmount): Piece;
+	public rotateRaw(by: RotationAmount): Piece;
 	public rotateClockwise(): Piece;
 	public rotateCounterClockwise(): Piece;
 	public rotate180(): Piece;
@@ -39,7 +41,7 @@ export class Engine {
 	public testRotate180(): boolean;
 
 	// methods to move active piece
-	public move(by: Offset): Piece;
+	public moveRaw(by: Offset): Piece;
 	public moveLeft(times?: number): Piece;
 	public moveRight(times?: number): Piece;
 	public moveUp(times?: number): Piece;
@@ -53,21 +55,35 @@ export class Engine {
 	public testMoveDown(times?: number): boolean;
 
 	// move/rotate the test piece, then the active piece if possible
-	public testAndRotate(by: RotationAmount): boolean;
-	public testAndMove(by: Offset): boolean;
+	public rotate(by: RotationAmount): boolean;
+	public move(by: Offset): boolean;
 	public multiAction(queue: Action[]): boolean;
-
-	// place active piece
-	public place(): void;
 }
 
 export class Board {
-	public width: number;
+	// fields
+	public checkClear: ClearCheck;
+	public currentPiece: Piece;
 	public height: number;
 	public squares: Square[][];
-	public currentPiece: Piece;
+	public width: number;
 
-	private constructor(width: number, height: number);
+	// constructor
+	private constructor(
+		width: number,
+		height: number,
+		pieces: PieceData[],
+		checkClear: ClearCheck
+	);
+
+	// general utility
+	public place(): void;
+
+	// actions
+	public rotate(by: RotationAmount, type: PieceType): boolean;
+	public move(by: Offset, type: PieceType): boolean;
+	public moveToTest(): void;
+	public resetTest(): void;
 }
 
 export class Piece {
@@ -99,7 +115,9 @@ export interface PieceData {
 	kicks: KickTable;
 }
 
-export interface Metadata {}
+export interface Metadata {
+	color?;
+}
 
 export interface KickData {
 	"+": Offset[];
