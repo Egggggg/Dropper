@@ -111,7 +111,7 @@ export class Square {
 	public position: Position;
 	public metadata: Metadata;
 
-	public constructor(position: Position, meta: Metadata);
+	public constructor(position: Position, meta?: Metadata);
 }
 
 // interfaces
@@ -152,4 +152,21 @@ export interface Rotation {
 
 export interface Movement {
 	by: Offset;
+}
+
+export interface BoardData {
+	width: number;
+	height: number;
+	pieces: PieceData[];
+	checkClear: ClearCheck;
+	draw: Draw;
+}
+
+export interface EngineData {
+	numBoards: number;
+	defaultWidth?: number;
+	defaultHeight?: number;
+	defaultCheckClear?: ClearCheck;
+	defaultDraw?: Draw;
+	boards?: BoardData[];
 }
