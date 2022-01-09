@@ -1,9 +1,11 @@
+// types
 type RotationAmount = -1 | 1 | 2;
 type MoveType = "main" | "test";
 type Action = Rotation | Movement;
 type ClearCheck = (piece: Piece) => Square[];
 type Draw = Function;
 
+// classes
 export class Engine {
 	// fields
 	public activeBoard: number;
@@ -13,7 +15,7 @@ export class Engine {
 	public width: number;
 
 	// constructor
-	private constructor(
+	public constructor(
 		width: number,
 		height: number,
 		pieces: PieceData[],
@@ -71,7 +73,7 @@ export class Board {
 	public width: number;
 
 	// constructor
-	private constructor(
+	public constructor(
 		width: number,
 		height: number,
 		pieces: PieceData[],
@@ -96,7 +98,7 @@ export class Piece {
 	public metadata: Metadata;
 
 	// constructor
-	private constructor(data: PieceData, meta: Metadata);
+	public constructor(data: PieceData, meta: Metadata);
 
 	// actions
 	public rotate(by: RotationAmount, type: MoveType): boolean;
@@ -109,9 +111,10 @@ export class Square {
 	public position: Position;
 	public metadata: Metadata;
 
-	private constructor(position: Position, meta: Metadata);
+	public constructor(position: Position, meta: Metadata);
 }
 
+// interfaces
 export interface KickTable {
 	"0": KickData;
 	"1": KickData;
@@ -130,6 +133,7 @@ export interface Offset {
 }
 
 export interface PieceData {
+	squares: Offset[];
 	kicks: KickTable;
 }
 
