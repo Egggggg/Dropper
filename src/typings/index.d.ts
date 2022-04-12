@@ -1,10 +1,3 @@
-// types
-type RotationAmount = -1 | 1 | 2;
-type MoveType = "main" | "test";
-type Action = Rotation | Movement;
-type ClearCheck = (piece: Piece) => Square[];
-type Draw = Function;
-
 // classes
 export class Engine {
 	// fields
@@ -112,61 +105,4 @@ export class Square {
 	public metadata: Metadata;
 
 	public constructor(position: Position, meta?: Metadata);
-}
-
-// interfaces
-export interface KickTable {
-	"0": KickData;
-	"1": KickData;
-	"2": KickData;
-	"3": KickData;
-}
-
-export interface Position {
-	x: number;
-	y: number;
-}
-
-export interface Offset {
-	x: number;
-	y: number;
-}
-
-export interface PieceData {
-	squares: Offset[];
-	kicks: KickTable;
-}
-
-export interface Metadata {
-	color?: any;
-}
-
-export interface KickData {
-	"+": Offset[];
-	"-": Offset[];
-}
-
-export interface Rotation {
-	by: RotationAmount;
-}
-
-export interface Movement {
-	by: Offset;
-}
-
-export interface BoardData {
-	width: number;
-	height: number;
-	pieces: PieceData[];
-	checkClear: ClearCheck;
-	draw: Draw;
-}
-
-export interface EngineData {
-	numBoards: number;
-	defaultWidth?: number;
-	defaultHeight?: number;
-	defaultCheckClear?: ClearCheck;
-	defaultDraw?: Draw;
-	boards?: BoardData[];
 }
